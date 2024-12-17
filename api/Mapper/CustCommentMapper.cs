@@ -17,7 +17,7 @@ namespace api.Mapper
             return custComment;
         }
 
-        public static CustComments ToCustCommentFromCreateDTO(this CreateCustCommentDTO custCommentDTO)
+        public static CustComments ToCustCommentFromCreateDTO(this CreateCustCommentRequestDTO custCommentDTO)
         {               
             return new CustComments
             {

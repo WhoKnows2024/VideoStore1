@@ -25,7 +25,7 @@ namespace api.Controllers
         [HttpGet]
         public IActionResult GetAll()
         {
-            var Customer = _context.Customers.ToList();
+            var Customer = _context.CustComment.ToList();
             //.Select(Customer => Customer.ToCustomerDTO());
             return Ok(Customer);
         }
@@ -33,7 +33,7 @@ namespace api.Controllers
         [HttpGet("{id}")]
         public IActionResult GetCustomerById([FromRoute] int id)
         {
-            var customer = _context.Customers.Find(id);
+            var customer = _context.CustComment.Find(id);
 
             if (customer == null)
             {
@@ -46,7 +46,7 @@ namespace api.Controllers
         public IActionResult Create([FromBody] CreateCustomerRequestDTO customerDTO)
         {
             var customerModel = customerDTO.ToCustomerFromCreateDTO(); 
-            _context.Customers.Add(customerModel);
+            _context.CustComment.Add(customerModel);
             _context.SaveChanges();
             return CreatedAtAction(nameof(GetCustomerById), new { id = customerModel.CustId}, customerModel.ToCustomerDTO());
         }

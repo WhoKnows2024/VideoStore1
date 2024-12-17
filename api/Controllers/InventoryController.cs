@@ -1,4 +1,7 @@
 using api.Data;
+using api.DTOs.Inventory;
+using api.Mapper;
+using api.Models;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -36,7 +39,7 @@ namespace api.Controllers
             return Ok(inventory);
         }
         //Get api/Inventory/{title}
-        [HttpGet("{title}")] 
+        [HttpGet("{title}")]
         public IActionResult GetbyTitle([FromRoute] string title)
         {
             var title1 = _context.Inventory.Find(title);
@@ -62,11 +65,19 @@ namespace api.Controllers
         public IActionResult GetByStudio([FromRoute] int studio)
         {
             var studioId = _context.Inventory.Find(studio);
-                if (studio == null)
+            if (studio == null)
             {
                 return NotFound(studioId);
             }
-                return Ok(studioId);
+            return Ok(studioId);
         }
-    } 
+        [HttpPost]
+        public IActionResult Create([FromBody] CreateInventoryRequestDTO inventoryDTO)
+        {
+            var inventoryModel = inventoryDTO.ToInventoryFromCreateDTO();
+                _context.Inventory.Add(inventoryModel);
+                _context.SaveChanges();
+                return CreatedAtAction(nameof(GetInventoryByid), new { id = inventoryModel.InvId }, inventoryModel.ToInventoryDTO());
+        }
+    }
 }

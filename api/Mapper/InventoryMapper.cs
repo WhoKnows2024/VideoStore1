@@ -19,5 +19,18 @@ namespace api.Mapper
                 Status = inventoryModel.Status
             };
         }
+        public static Inventory ToInventoryFromCreateDTO(this CreateInventoryRequestDTO inventoryDTO)
+        {
+            return new Inventory
+            {
+                Title = inventoryDTO.Title,
+                Rating = inventoryDTO.Rating,
+                Genera = inventoryDTO.Genera,
+                ReleaseDate = inventoryDTO.ReleaseDate,
+                Length = inventoryDTO.Length,
+                Studio = inventoryDTO.Studio,
+                Status = inventoryDTO.Status
+            };
+        }
     }
 }

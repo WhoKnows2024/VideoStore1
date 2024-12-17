@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using api.Data;
 using api.DTOs.Customers;
+using api.Mapper;
 using api.Models;
 using Microsoft.AspNetCore.Mvc;
 
@@ -42,13 +43,12 @@ namespace api.Controllers
         }
 
         [HttpPost]
-        public IActionResult Create([FromBody] CreateCustCommentRequestDTO custCommentRequestDTO)
+        public IActionResult Create([FromBody] CreateCustCommentRequestDTO custCommentDTO)
         {
-            var custCommentModel = CustCommentDTO.ToCustCommentFromCreateDTO();
-            _context.Customers.Add(custCommentModel);
+            var custCommentModel = custCommentDTO.ToCustCommentFromCreateDTO();
+            _context.CustComments.Add(custCommentModel);
             _context.SaveChanges();
-            return CreatedAtAction(nameof(GetCustCommentById), new { id = custCommentModel.CustId
-    }, custCommentModel.ToCustomerDTO());
+            return CreatedAtAction(nameof(GetCustCommentById), new { id = custCommentModel.CustId}, custCommentModel.ToCustCommentDTO());
         }
     }
 }
