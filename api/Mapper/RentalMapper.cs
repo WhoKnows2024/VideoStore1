@@ -1,5 +1,4 @@
 ﻿using api.DTOs.Rental;
-using api.DTOs.Rentals;
 using api.Models;
 using System.ComponentModel.Design;
 using System.Runtime.CompilerServices;
@@ -8,7 +7,7 @@ namespace api.Mapper
 {
     public static class RentalMapper
     {
-        public static RentalDTO ToRentalDTO(this Rentals rentalModel)
+        public static RentalDTO ToRentalDTO(this Rental rentalModel)
         {
             return new RentalDTO
             {
@@ -26,9 +25,9 @@ namespace api.Mapper
             {
                 Status = rentalDTO.Status,
                 Checkout = rentalDTO.CheckOut,
-                CheckIn = rentalDTO.CheckedIn,
+                CheckedIn = rentalDTO.CheckedIn,
                 CustId = rentalDTO.CustId,
-                Inventory = rentalDTO.InventoryID
+                InventoryID = rentalDTO.InventoryID
             };
 
         }

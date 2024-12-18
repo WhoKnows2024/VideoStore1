@@ -1,15 +1,11 @@
-﻿using System.Runtime.CompilerServices;
-
-namespace api.DTOs.Rental
+﻿namespace api.DTOs.Rental
 {
-    public class RentalDTO
+    public class UpdateRentalRequestDTO
     {
-        public int RentalId { get; set; }
         public int Status { get; set; }
         public DateTime? CheckOut { get; set; } = DateTime.Now;
         public DateTime? CheckedIn { get; set; } = DateTime.Now;
         public int CustId { get; set; }
         public int InventoryID { get; set; }
     }
-    
 }

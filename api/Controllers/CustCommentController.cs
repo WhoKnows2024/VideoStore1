@@ -50,5 +50,6 @@ namespace api.Controllers
             _context.SaveChanges();
             return CreatedAtAction(nameof(GetCustCommentById), new { id = custCommentModel.CustId}, custCommentModel.ToCustCommentDTO());
         }
+        
     }
 }

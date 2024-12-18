@@ -1,8 +1,10 @@
 using api.Data;
 using api.DTOs.Inventory;
+using api.DTOs.Rental;
 using api.Mapper;
 using api.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore.Diagnostics;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -78,6 +80,27 @@ namespace api.Controllers
                 _context.Inventory.Add(inventoryModel);
                 _context.SaveChanges();
                 return CreatedAtAction(nameof(GetInventoryByid), new { id = inventoryModel.InvId }, inventoryModel.ToInventoryDTO());
+        }
+        [HttpPut]
+        [Route("{InvId}")]
+        public IActionResult Update([FromRoute] int invId, [FromBody] UpdateRentalRequestDTO updateRental)
+        {
+            var inventoryModel = _context.Inventory.FirstOrDefault(r => r.InvId == invId);  
+            if(inventoryModel == null)
+            {
+                return NotFound(inventoryModel);
+            }
+            inventoryModel.Title = inventoryModel.Title;
+            inventoryModel.Rating = inventoryModel.Rating;
+            inventoryModel.Genera = inventoryModel.Genera;
+            inventoryModel.ReleaseDate = inventoryModel.ReleaseDate;
+            inventoryModel.Length = inventoryModel.Length;
+            inventoryModel.Studio = inventoryModel.Studio;
+            inventoryModel.Status = inventoryModel.Status;
+
+            _context.SaveChanges();
+            return Ok(inventoryModel.ToInventoryDTO());
+
         }
     }
 }

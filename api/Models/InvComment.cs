@@ -11,10 +11,8 @@ namespace api.Models
         [Key]
         public int InvCommentId { get; set; }
         public  int InvId { get; set; }
-        public Inventory? Inventory { get; set; }
+        public required string InvComment { get; set; }
         public DateTime Entered { get; set; } = DateTime.Now;
-
-
 
     }
 

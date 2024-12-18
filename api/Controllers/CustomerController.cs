@@ -25,15 +25,15 @@ namespace api.Controllers
         [HttpGet]
         public IActionResult GetAll()
         {
-            var Customer = _context.CustComment.ToList();
+            var Customer = _context.Customer.ToList();
             //.Select(Customer => Customer.ToCustomerDTO());
             return Ok(Customer);
         }
-        
+
         [HttpGet("{id}")]
         public IActionResult GetCustomerById([FromRoute] int id)
         {
-            var customer = _context.CustComment.Find(id);
+            var customer = _context.Customer.Find(id);
 
             if (customer == null)
             {
@@ -42,13 +42,33 @@ namespace api.Controllers
             return Ok(customer);
         }
 
-        [HttpPost] 
+        [HttpPost]
         public IActionResult Create([FromBody] CreateCustomerRequestDTO customerDTO)
         {
-            var customerModel = customerDTO.ToCustomerFromCreateDTO(); 
-            _context.CustComment.Add(customerModel);
+            var customerModel = customerDTO.ToCustomerFromCreateDTO();
+            _context.Customer.Add(customerModel);
             _context.SaveChanges();
-            return CreatedAtAction(nameof(GetCustomerById), new { id = customerModel.CustId}, customerModel.ToCustomerDTO());
+            return CreatedAtAction(nameof(GetCustomerById), new { id = customerModel.CustId }, customerModel.ToCustomerDTO());
+        }
+        [HttpPut]
+        [Route("{custId}")]
+        public IActionResult Update([FromRoute]int custId, [FromBody] UpdateCustomerRequestDTO updateDTO)
+        {
+            var customerModel = _context.Customer.FirstOrDefault(c => c.CustId == custId);
+            if(customerModel == null)
+            {
+                return NotFound();
+            }
+            customerModel.CustId = custId;
+            customerModel.FirstName = updateDTO.FirstName;
+            customerModel.LastName = updateDTO.LastName;
+            customerModel.CustComment = updateDTO.CustComment;
+            customerModel.DateAdded = updateDTO.DateAdded;
+            customerModel.LastModified = updateDTO.LastModified;
+            customerModel.LastRental = updateDTO.LastRental;
+            _context.SaveChanges();
+            return Ok(customerModel.ToCustomerDTO());
+
         }
     }
 }
