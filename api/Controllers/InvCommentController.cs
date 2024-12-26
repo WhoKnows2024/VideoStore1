@@ -59,6 +59,7 @@ namespace api.Controllers
             }
             invCommentModel.InvCommentId = updateDTO.InvCommentId;
             invCommentModel.InvComment = updateDTO.InvComments;
+            invCommentModel.Entered = updateDTO.Entered;
             _context.SaveChanges();
             return Ok(invCommentModel.ToInvCommentDTO());
 

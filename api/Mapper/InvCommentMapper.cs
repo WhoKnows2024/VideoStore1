@@ -7,11 +7,11 @@ namespace api.Mapper
 {
     public static class InvCommentMapper
     {
-        public static InvCommentDTO ToInvCommentDTO(this InvCommentDTO invCommentModel) 
+        public static UpdateInvCommentDTO ToInvCommentDTO(this UpdateInvCommentDTO invCommentModel) 
         {
-            return new InvCommentDTO
+            return new UpdateInvCommentDTO
             {
-                // invComment = invCommentModel.InvCommentId;
+                InvCommentId = invCommentModel.InvCommentId,
                 InvId = invCommentModel.InvId,
                 InvComments = invCommentModel.InvComments,
                 Entered = invCommentModel.Entered
@@ -23,7 +23,7 @@ namespace api.Mapper
             {
                 InvCommentId = invCommentDTO.InvCommentId,
                 InvId = invCommentDTO.InvId,
-                InvComment = invCommentDTO.InvComment,
+                InvComment = invCommentDTO.InvComments,
                 Entered = invCommentDTO.Entered
             };
 

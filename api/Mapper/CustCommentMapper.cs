@@ -21,6 +21,7 @@ namespace api.Mapper
         {               
             return new CustComments
             {
+                
                 CustId = custCommentDTO.CustId,
                 CustComment = custCommentDTO.CustComment,
                 Entered = custCommentDTO.Entered

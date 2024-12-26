@@ -18,6 +18,8 @@ namespace api.Controllers
     public class CustCommentController : ControllerBase
     {
         private readonly ApplicationDBContext _context;
+        private object custCustomerModel;
+
         public CustCommentController(ApplicationDBContext context)
         {   //constructor
             _context = context;
@@ -49,6 +51,23 @@ namespace api.Controllers
             _context.CustComments.Add(custCommentModel);
             _context.SaveChanges();
             return CreatedAtAction(nameof(GetCustCommentById), new { id = custCommentModel.CustId}, custCommentModel.ToCustCommentDTO());
+        }
+        [HttpPut]
+        [Route("{custCommentId}")]
+        public IActionResult Update([FromRoute]int custCommentId, [FromBody]UpdateCustCommentRequestDTO updateCustCommentDTO)
+        {
+            var custCommentModel = _context.CustComments.FirstOrDefault(cc => cc.CustCommentId == custCommentId);
+            if (custCommentModel == null)
+            {
+                return NotFound(); 
+            }
+            custCommentModel.CustId = updateCustCommentDTO.CustId;
+            custCommentModel.CustComment = updateCustCommentDTO.CustComment;
+            custCommentModel.Entered = updateCustCommentDTO.Entered;    
+
+            _context.SaveChanges();
+            return Ok(custCommentModel.ToCustCommentDTO());
+
         }
         
     }
